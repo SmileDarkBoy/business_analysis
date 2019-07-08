@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    
+    <changeSet id="V01__init_report" author="Ara">
+        <comment>项目信息</comment>
+        <createTable tableName="business_report_info">
+            <column name="id" type="varchar(64)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="info_xmbm" type="varchar(100)" remarks="项目编码">
+                <constraints nullable="true"/>
+            </column>
+            <column name="info_ywlx" type="varchar(100)" remarks="业务类型">
+                <constraints nullable="true"/>
+            </column>
+            <column name="info_ssdq" type="varchar(100)" remarks="所属地区">
+                <constraints nullable="true"/>
+            </column>
+            <column name="info_ssxq" type="varchar(100)" remarks="所属辖区">
+                <constraints nullable="true"/>
+            </column>
+            <column name="info_fzr" type="varchar(64)" remarks="项目责任人">
+                <constraints nullable="true"/>
+            </column>
+            <column name="info_gsbm" type="varchar(100)" remarks="归属部门">
+                <constraints nullable="true"/>
+            </column>
+            <column name="info_jfly" type="varchar(255)" remarks="经费来源">
+                <constraints nullable="true"/>
+            </column>
+            <column name="info_xmys" type="decimal(32,8)" remarks="项目预算">
+                <constraints nullable="true"/>
+            </column>
+            <column name="info_zbfs" type="varchar(100)" remarks="招标方式">
+                <constraints nullable="true"/>
+            </column>
+            <column name="info_zbsj" type="datetime" remarks="招标时间">
+                <constraints nullable="true"/>
+            </column>
+            <column name="info_sfztb" type="tinyint(0)" remarks="是否招投标 1是 0否">
+                <constraints nullable="true"/>
+            </column>
+            <column name="info_sfclxmz" type="tinyint" remarks="是否成立项目组 1是 0否">
+                <constraints nullable="true"/>
+            </column>
+            <column name="info_bz" type="varchar(1000)" remarks="备注">
+                <constraints nullable="true"/>
+            </column>
+            <column name="info_xmzt" type="varchar(100)" remarks="项目状态 阶段状态(合同签订/项目失效等">
+                <constraints nullable="true"/>
+            </column>
+            <column name="status" type="tinyint(0)" remarks="状态 1正常 0删除" defaultValue="1">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_by" type="varchar(64)" remarks="创建人">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <comment>项目-客户信息</comment>
+        <createTable tableName="business_report_info_customer">
+            <column name="id" type="varchar(64)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="info_id" type="varchar(64)" remarks="项目id">
+                <constraints nullable="true"/>
+            </column>
+            <column name="customer_dwmc" type="varchar(255)" remarks="单位名称">
+                <constraints nullable="true"/>
+            </column>
+            <column name="customer_khsx" type="varchar(100)" remarks="客户属性">
+                <constraints nullable="true"/>
+            </column>
+            <column name="customer_qrfs" type="varchar(100)" remarks="切入方式">
+                <constraints nullable="true"/>
+            </column>
+            <column name="customer_fzr" type="varchar(64)" remarks="负责人">
+                <constraints nullable="true"/>
+            </column>
+            <column name="customer_lxdh" type="varchar(255)" remarks="联系号码">
+                <constraints nullable="true"/>
+            </column>
+            <column name="customer_zw" type="varchar(255)" remarks="职务">
+                <constraints nullable="true"/>
+            </column>
+            <column name="customer_ks" type="varchar(255)" remarks="科室">
+                <constraints nullable="true"/>
+            </column>
+            <column name="status" type="tinyint(0)" remarks="状态 1正常 0删除" defaultValue="1">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_by" type="varchar(64)" remarks="创建人">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <comment>项目-代理商信息</comment>
+        <createTable tableName="business_report_info_agency">
+            <column name="id" type="varchar(64)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="info_id" type="varchar(64)" remarks="项目id">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="agency_dlsqc" type="varchar(255)" remarks="代理商全称">
+                <constraints nullable="true"/>
+            </column>
+            <column name="agency_lxrxm" type="varchar(255)" remarks="联系人姓名">
+                <constraints nullable="true"/>
+            </column>
+            <column name="agency_lxdh" type="varchar(255)" remarks="联系电话">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="status" type="tinyint(0)" remarks="状态 1正常 0删除" defaultValue="1">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_by" type="varchar(64)" remarks="创建人">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <comment>项目-成员</comment>
+        <createTable tableName="business_report_info_member">
+            <column name="id" type="varchar(64)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="info_id" type="varchar(64)" remarks="项目id">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="member_ygbh" type="varchar(100)" remarks="员工编号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="member_ygxm" type="varchar(255)" remarks="员工姓名">
+                <constraints nullable="true"/>
+            </column>
+            <column name="member_znzw" type="varchar(255)" remarks="组内职务">
+                <constraints nullable="true"/>
+            </column>
+            <column name="member_lxdh" type="varchar(255)" remarks="联系电话">
+                <constraints nullable="true"/>
+            </column>
+            <column name="member_rzsj" type="datetime" remarks="入组时间">
+                <constraints nullable="true"/>
+            </column>
+            <column name="member_lzsj" type="datetime" remarks="离组时间">
+                <constraints nullable="true"/>
+            </column>
+            <column name="member_lyfpbl" type="varchar(255)" remarks="利益分配比例">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="status" type="tinyint(0)" remarks="状态 1正常 0删除" defaultValue="1">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_by" type="varchar(64)" remarks="创建人">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <comment>项目-竞争对手</comment>
+        <createTable tableName="business_report_info_rival">
+            <column name="id" type="varchar(64)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="info_id" type="varchar(64)" remarks="项目id">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="rival_gsxx" type="varchar(1000)" remarks="公司信息">
+                <constraints nullable="true"/>
+            </column>
+            <column name="rival_fzrxx" type="varchar(1000)" remarks="负责人信息">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="status" type="tinyint(0)" remarks="状态 1正常 0删除" defaultValue="1">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_by" type="varchar(64)" remarks="创建人">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <comment>项目-跟踪记录</comment>
+        <createTable tableName="business_report_info_following">
+            <column name="id" type="varchar(64)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="info_id" type="varchar(64)" remarks="项目id">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="following_djr" type="varchar(1000)" remarks="登记人">
+                <constraints nullable="true"/>
+            </column>
+            <column name="following_gznr" type="varchar(1000)" remarks="跟踪内容">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="status" type="tinyint(0)" remarks="状态 1正常 0删除" defaultValue="1">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_by" type="varchar(64)" remarks="创建人">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <comment>项目-收入信息</comment>
+        <createTable tableName="business_report_info_revenue">
+            <column name="id" type="varchar(64)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="info_id" type="varchar(64)" remarks="项目id">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="revenue_gssyb" type="varchar(100)" remarks="归属事业部">
+                <constraints nullable="true"/>
+            </column>
+            <column name="revenue_gsejbm" type="varchar(100)" remarks="归属二级部门">
+                <constraints nullable="true"/>
+            </column>
+            <column name="revenue_gssjbm" type="varchar(100)" remarks="归属三级部门">
+                <constraints nullable="true"/>
+            </column>
+            <column name="revenue_gsr" type="varchar(100)" remarks="归属人">
+                <constraints nullable="true"/>
+            </column>
+            <column name="revenue_gsrgh" type="varchar(100)" remarks="归属人工号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="revenue_lxrq" type="datetime" remarks="立项日期">
+                <constraints nullable="true"/>
+            </column>
+            <column name="revenue_yw" type="varchar(100)" remarks="业务">
+                <constraints nullable="true"/>
+            </column>
+            <column name="revenue_xm" type="varchar(100)" remarks="项目">
+                <constraints nullable="true"/>
+            </column>
+            <column name="revenue_dq" type="varchar(100)" remarks="地区">
+                <constraints nullable="true"/>
+            </column>
+            <column name="revenue_khlx" type="varchar(100)" remarks="客户类型">
+                <constraints nullable="true"/>
+            </column>
+            <column name="revenue_dzrq" type="datetime" remarks="到账日期 财务确认到账日期">
+                <constraints nullable="true"/>
+            </column>
+            <column name="revenue_hkje" type="decimal(32,8)" remarks="回款金额 实际回款金额">
+                <constraints nullable="true"/>
+            </column>
+            <column name="revenue_cwbz" type="varchar(1000)" remarks="财务备注">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="status" type="tinyint(0)" remarks="状态 1正常 0删除" defaultValue="1">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_by" type="varchar(64)" remarks="创建人">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <comment>项目-支出信息</comment>
+        <createTable tableName="business_report_info_expenses">
+            <column name="id" type="varchar(64)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="info_id" type="varchar(64)" remarks="项目id">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="expenses_lcbh" type="varchar(255)" remarks="流程编号 泛微流程编号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="expenses_lcsqr" type="varchar(64)" remarks="流程申请人">
+                <constraints nullable="true"/>
+            </column>
+            <column name="expenses_cdsyb" type="varchar(100)" remarks="承担事业部">
+                <constraints nullable="true"/>
+            </column>
+            <column name="expenses_cdejbm" type="varchar(100)" remarks="承担二级部门">
+                <constraints nullable="true"/>
+            </column>
+            <column name="expenses_cdsjbm" type="varchar(100)" remarks="承担三级部门">
+                <constraints nullable="true"/>
+            </column>
+            <column name="expenses_cdr" type="varchar(64)" remarks="承担人">
+                <constraints nullable="true"/>
+            </column>
+            <column name="expenses_cdrgh" type="varchar(100)" remarks="承担人工号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="expenses_fykm" type="varchar(255)" remarks="费用科目">
+                <constraints nullable="true"/>
+            </column>
+            <column name="expenses_je" type="decimal(32,8)" remarks="金额">
+                <constraints nullable="true"/>
+            </column>
+            <column name="expenses_cnczrq" type="datetime" remarks="出纳操作日期">
+                <constraints nullable="true"/>
+            </column>
+            <column name="expenses_cwcnyj" type="varchar(1000)" remarks="财务出纳意见">
+                <constraints nullable="true"/>
+            </column>
+            <column name="expenses_lcsqrq" type="datetime" remarks="流程申请日期">
+                <constraints nullable="true"/>
+            </column>
+            <column name="expenses_sm" type="varchar(1000)" remarks="说明">
+                <constraints nullable="true"/>
+            </column>
+            <column name="expenses_cdjsyb" type="varchar(100)" remarks="承担旧事业部">
+                <constraints nullable="true"/>
+            </column>
+            <column name="expenses_tdrcs" type="varchar(100)" remarks="提单人参数">
+                <constraints nullable="true"/>
+            </column>
+            <column name="expenses_tdrgh" type="varchar(100)" remarks="提单人工号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="expenses_hdzt" type="varchar(100)" remarks="核对状态">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="status" type="tinyint(0)" remarks="状态 1正常 0删除" defaultValue="1">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_by" type="varchar(64)" remarks="创建人">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <comment>项目-可行性调研</comment>
+        <createTable tableName="business_report_info_kxxdy">
+            <column name="id" type="varchar(64)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="info_id" type="varchar(64)" remarks="项目id">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="kxxdy_yjhte" type="decimal(32,8)" remarks="预计合同额">
+                <constraints nullable="true"/>
+            </column>
+            <column name="kxxdy_zq" type="varchar(255)" remarks="预计周期">
+                <constraints nullable="true"/>
+            </column>
+            <column name="kxxdy_gm" type="decimal(32,8)" remarks="预计规模 数量">
+                <constraints nullable="true"/>
+            </column>
+            <column name="kxxdy_kexxcs" type="varchar(1000)" remarks="可行性陈述">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="status" type="tinyint(0)" remarks="状态 1正常 0删除" defaultValue="1">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_by" type="varchar(64)" remarks="创建人">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <comment>项目-成交审核</comment>
+        <createTable tableName="business_report_info_cjsh">
+            <column name="id" type="varchar(64)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="info_id" type="varchar(64)" remarks="项目id">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="cjsh_jfmc" type="varchar(255)" remarks="甲方名称">
+                <constraints nullable="true"/>
+            </column>
+            <column name="cjsh_yfmc" type="varchar(255)" remarks="乙方名称">
+                <constraints nullable="true"/>
+            </column>
+            <column name="cjsh_hzlx" type="varchar(255)" remarks="合作类型">
+                <constraints nullable="true"/>
+            </column>
+            <column name="cjsh_htqsrq" type="datetime" remarks="合同签署日期">
+                <constraints nullable="true"/>
+            </column>
+            <column name="cjsh_htje" type="decimal(32,8)" remarks="合同金额 上报收入">
+                <constraints nullable="true"/>
+            </column>
+            <column name="cjsh_hkrq" type="datetime" remarks="回款日期">
+                <constraints nullable="true"/>
+            </column>
+            <column name="cjsh_yszk" type="decimal(32,8)" remarks="应收账款 运营人员维护">
+                <constraints nullable="true"/>
+            </column>
+            <column name="cjsh_htsxrq" type="datetime" remarks="合同生效日期">
+                <constraints nullable="true"/>
+            </column>
+            <column name="cjsh_bz" type="varchar(1000)" remarks="备注说明">
+                <constraints nullable="true"/>
+            </column>
+            <column name="cjsh_zbsj" type="datetime" remarks="中标时间">
+                <constraints nullable="true"/>
+            </column>
+            <column name="cjsh_zbdw" type="varchar(255)" remarks="中标单位">
+                <constraints nullable="true"/>
+            </column>
+            <column name="cjsh_zbgs" type="varchar(255)" remarks="中标公示">
+                <constraints nullable="true"/>
+            </column>
+            <column name="cjsh_gsrq" type="datetime" remarks="公示日期">
+                <constraints nullable="true"/>
+            </column>
+            <column name="cjsh_shzt" type="tinyint" remarks="审核状态 0待审核 1通过 2驳回">
+                <constraints nullable="true"/>
+            </column>
+            <column name="cjsh_shr" type="varchar(64)" remarks="审核人">
+                <constraints nullable="true"/>
+            </column>
+            <column name="cjsh_shsj" type="datetime" remarks="审核时间">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="status" type="tinyint(0)" remarks="状态 1正常 0删除" defaultValue="1">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_by" type="varchar(64)" remarks="创建人">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <comment>项目-申请失效</comment>
+        <createTable tableName="business_report_info_sqsx">
+            <column name="id" type="varchar(64)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="info_id" type="varchar(64)" remarks="项目id">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="sqsx_sxyy" type="varchar(1000)" remarks="失效原因">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sqsx_zbsj" type="datetime" remarks="中标时间">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sqsx_zbdw" type="varchar(255)" remarks="中标单位">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sqsx_zbgs" type="varchar(255)" remarks="中标公示">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sqsx_sxyycs" type="varchar(1000)" remarks="失效原因称述 不少于100字">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sqsx_shzt" type="tinyint" remarks="审核状态 0待审核 1通过 2驳回">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sqsx_shr" type="varchar(64)" remarks="审核人">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sqsx_shsj" type="datetime" remarks="审核时间">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="status" type="tinyint(0)" remarks="状态 1正常 0删除" defaultValue="1">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_by" type="varchar(64)" remarks="创建人">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <comment>项目-文件表</comment>
+        <createTable tableName="file_entity">
+            <column name="file_id" type="varchar(64)" remarks="文件id">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="file_md5" type="varchar(255)" remarks="文件md5">
+                <constraints nullable="true"/>
+            </column>
+            <column name="file_path" type="varchar(1000)" remarks="文件路径">
+                <constraints nullable="true"/>
+            </column>
+            <column name="file_type" type="varchar(255)" remarks="文件内容类型">
+                <constraints nullable="true"/>
+            </column>
+            <column name="file_extension" type="varchar(100)" remarks="文件后缀扩展名">
+                <constraints nullable="true"/>
+            </column>
+            <column name="file_size" type="decimal(32,8)" remarks="文件大小(单位B)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <comment>项目-文件上传表</comment>
+        <createTable tableName="file_upload">
+            <column name="id" type="varchar(64)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="file_id" type="varchar(64)" remarks="文件编号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="file_name" type="varchar(255)" remarks="文件名称">
+                <constraints nullable="true"/>
+            </column>
+            <column name="file_type" type="varchar(100)" remarks="文件类型">
+                <constraints nullable="true"/>
+            </column>
+            <column name="biz_key" type="varchar(100)" remarks="业务主键">
+                <constraints nullable="true"/>
+            </column>
+            <column name="biz_type" type="varchar(100)" remarks="业务类型">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="status" type="tinyint(0)" remarks="状态 1正常 0删除" defaultValue="1">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_by" type="varchar(64)" remarks="创建人">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <comment>项目-字典类型表</comment>
+        <createTable tableName="dict_type">
+            <column name="id" type="varchar(64)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="dict_name" type="varchar(255)" remarks="字典名称">
+                <constraints nullable="true"/>
+            </column>
+            <column name="dict_type" type="varchar(255)" remarks="字典类型">
+                <constraints nullable="true"/>
+            </column>
+            <column name="remarks" type="varchar(1000)" remarks="备注信息">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="status" type="tinyint(0)" remarks="状态 1正常 0删除" defaultValue="1">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_by" type="varchar(64)" remarks="创建人">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <comment>项目-字典数据表</comment>
+        <createTable tableName="dict_data">
+            <column name="dict_code" type="varchar(64)" remarks="字典编码">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="parent_code" type="varchar(64)" remarks="父级编号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="parent_codes" type="varchar(1000)" remarks="所有父级编号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="tree_sort" type="decimal(32,0)" remarks="本级排序号（升序）">
+                <constraints nullable="true"/>
+            </column>
+            <column name="tree_sorts" type="varchar(1000)" remarks="所有级别排序号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="tree_leaf" type="tinyint" remarks="是否最末级">
+                <constraints nullable="true"/>
+            </column>
+            <column name="tree_level" type="decimal(32,0)" remarks="层次级别">
+                <constraints nullable="true"/>
+            </column>
+            <column name="tree_names" type="varchar(1000)" remarks="全节点名">
+                <constraints nullable="true"/>
+            </column>
+            <column name="dict_label" type="varchar(255)" remarks="字典标签">
+                <constraints nullable="true"/>
+            </column>
+            <column name="dict_value" type="int(6)" remarks="字典键值">
+                <constraints nullable="true"/>
+            </column>
+            <column name="dict_type" type="varchar(255)" remarks="字典类型">
+                <constraints nullable="true"/>
+            </column>
+            <column name="description" type="varchar(255)" remarks="字典描述">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="status" type="tinyint(0)" remarks="状态 1正常 0删除" defaultValue="1">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_date" type="datetime" remarks="创建时间" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_by" type="varchar(64)" remarks="创建人">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,2 @@
+rootProject.name = 'business-analysis-root'
+includeFlat 'business-analysis','business-analysis-service-api','business-analysis-web','business-gateway'

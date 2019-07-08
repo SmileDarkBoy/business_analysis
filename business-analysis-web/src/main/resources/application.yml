@@ -1,0 +1,43 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: business-analysis-webfd
+#  datasource:
+#    dynamic:
+#      primary: master
+#      strict: false
+#      datasource:
+#        master:
+#          driver-class-name: com.mysql.jdbc.Driver
+#          url: jdbc:mysql://mysql-test.superbio.cn:23306/business_analysis?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+#          username: root
+#          password: 1q2w3e4rf
+#        judicial:
+#          driver-class-name: com.mysql.jdbc.Driver
+#          url: jdbc:mysql://202.102.79.253:23306/judicial_version3?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+#          username: root
+#          password: W.07.COM
+eureka:
+  client:
+    service-url:
+        defaultZone: http://erueka-master.superbio.cn:8100/eureka/,http://erueka-slave.superbio.cn:8101/eureka/
+    enabled: true
+  instance:
+    prefer-ip-address: true
+swagger:
+  enabled: true
+  base-package: cn.superbio.business.controller
+feign:
+  hystrix:
+    enabled: true
+ribbon:
+  ReadTimeout: 40000
+  ConnectTimeout: 12000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
